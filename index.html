@@ -19,17 +19,15 @@
   <body>
 
 <!--Search bar container-->
-<div class="search container-fluid">
-  <div class="row">
-          <div class="input-group mb-3">
-            <input id="search-city" type="text" class="form-control" placeholder="Search for a city" aria-label="Search for a city">
+<div class="search-container-md">
+            <input type="text" class="form-control" class="search" placeholder="Search for a city">
                     <div class="input-group-append">
               <!-- <input id="search-city" type="text" class="form-control" placeholder="Search for a city" aria-label="Search for a city">
               <div class="search-query"> -->
-                <button type="button" class="btn btn-primary" id="search-button"><i class="fa fa-search"></i></button>
+                <button type="search" class="btn btn-primary" id="search-button"><i class="fa fa-search"></i></button>
               <!--Added clear search button-->
-<button class="btn btn-secondary rounded" type="button" id="clear-button">Clear search</button>
-<form id="search-history"></form>
+<button class="btn btn-secondary rounded" type="button" id="clear-history-button">Clear search</button>
+<form id="history"></form>
               </div>
             </div>
           </div>
@@ -38,11 +36,44 @@
 
 
 
+    <!--Current city and weather stats-->
+    <div class="col-lg-4 card m-3 .d-sm-none .d-md-block text-center font-weight-bold" id="todays-weather"><p>Today's Forecast</p>
+      <div class="card">
+        <h3 class="align-middle" id="city-name"></h3>
+        <img class="icon" alt="">
+        <p  class="temperature"></p>
+        <p class="humidity"></p>
+        <p class="wind-speed"></p>
+        <p class="uv-index"></p>
+      </div>
+    </div>
+  </div>
 
 
+<!--Forecast section-->
+<div class="row" id="days-header">
+  <div class="col-12 align-middle">
+      <h3>5-Day Forecast</h3>
+</div>
+  </div>
+<div class="list-container-fluid">
+  <div class="date"></div>
+      <div class="row row-cols-4">
+          <div class="col forecast bg-transparent text-dark rounded"></div>
+          <div class="col forecast bg-transparent text-dark rounded"></div>
+          <div class="col forecast bg-transparent text-dark rounded"></div>
+          <div class="col forecast bg-transparent text-dark rounded"></div>
+          <div class="col forecast bg-transparent text-dark rounded"></div>
+        </div>
+        </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+</div>
+ <script src="./assets/js/script.js"></script>
+  </div>
+</body>
 
-
-
-	<script src="./assets/js/script.js"></script>
-  </body>
 </html>
