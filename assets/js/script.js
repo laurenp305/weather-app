@@ -4,7 +4,7 @@ var cityHeader = document.querySelector('#city-name');
 var humidity = document.querySelector('.humidity');
 var windSpeed = document.querySelector('.wind-speed');
 var uvIndex = document.querySelector('.uv-index');
-var description = document.querySelector('.desc');
+var description = document.querySelector('.description');
 var clouds = document.querySelector('.clouds');
 var cityInput = document.querySelector('#search-input');
 var searchButton = document.querySelector('#search-button');
@@ -40,14 +40,30 @@ function nowReallyGetTheWeather(lat, lon) {
       return response.json();
     })
     .then( function (weatherObject) {
-      icon.innerHTML = weatherObject.weather[0].icon;
+      icon.innerHTML = weatherObject.weather.icon;
       currentTemperatureEl.innerHTML = "Temperature (F): " + weatherObject.main.temp;
       humidity.innerHTML = "Humidity: " + weatherObject.main.humidity;
       windSpeed.innerHTML = "Wind Speed: " + weatherObject.wind.speed;
-      // uvIndex.innerHTML = "Uv Index: " + weatherObject.
-      description.innerHTML = "Description: " + weatherObject.weather[0].description;
+      // uvIndex.innerHTML = "Uv Index: " 
+      description.innerHTML = "Description: " + weatherObject.weather.description;
       clouds.innerHTML = "Clouds: " + weatherObject.clouds.all;
+      console.log(icon.innerHTML);
+      // changeColor();
     })
+}
+
+function changeColor() {
+  if (uvIndex.innerHTML < 3) {
+    color.style.backgroundColor = "green";
+  } else if (uvIndex.innerHTML < 6) {
+    color.style.backgroundColor = "yellow";
+  } else if (uvIndex.innerHTML < 8) {
+    color.style.backgroundColor = "orange";
+  } else if (uvIndex.innerHTML < 11) {
+    color.style.backgroundColor = "red";
+  } else {
+    color.style.backgroundColor = "purple";
+  }
 }
 
 function fiveDayForecast() {
