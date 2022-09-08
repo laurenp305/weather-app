@@ -10,8 +10,9 @@ var cityInput = document.querySelector('#search-input');
 var searchButton = document.querySelector('#search-button');
 var icon = document.querySelector('.current-icon');
 var currentTemperatureEl = document.querySelector('.temperature');
-var theLat;
-var theLon;
+var color = ('.card');
+// var theLat;
+// var theLon;
 
 function fetchWeather(cityName) {
   const queryURL = "http://api.openweathermap.org/geo/1.0/direct?q=" + cityName + "&appid=" + apiKey;
@@ -29,11 +30,6 @@ function fetchWeather(cityName) {
       theLat = dataObject[0].lat;
       theLon = dataObject[0].lon;
       nowReallyGetTheWeather(theLat, theLon);
-
-      // let weatherIcon = response.data.weather[0].icon;
-      // currentIconEl.setAttribute("src", "http://openweathermap.org/img/w/" + weatherIcon + ".png");
-      // currentIconEl.setAttribute("alt", response.data.weather[0].description);
-      // currentTemperatureEl.innerHTML = "Temperature: " + response.data.main.temp + "&#8451"; farenheitTemp = (response.data.main.temp * (9 / 5) - 459.67).toFixed(2);
     })
 }
 
@@ -44,66 +40,19 @@ function nowReallyGetTheWeather(lat, lon) {
       return response.json();
     })
     .then( function (weatherObject) {
+      icon.innerHTML = weatherObject.weather[0].icon;
       currentTemperatureEl.innerHTML = "Temperature (F): " + weatherObject.main.temp;
       humidity.innerHTML = "Humidity: " + weatherObject.main.humidity;
       windSpeed.innerHTML = "Wind Speed: " + weatherObject.wind.speed;
       // uvIndex.innerHTML = "Uv Index: " + weatherObject.
+      description.innerHTML = "Description: " + weatherObject.weather[0].description;
+      clouds.innerHTML = "Clouds: " + weatherObject.clouds.all;
     })
 }
-// function searchCityFunction() {
-// //Grab input
-// const cityName = cityInput.value;
-// console.log(cityName);
-// fetchLocation(cityName);
-// }
-// //Grab info
-//city info
-//weather info
-//wind
-//temp
-//uv index
-//humidity
-//Save search history
-//Update display
 
-
-function fetchLocation(cityName) {
-  const queryURL = "http://api.openweathermap.org/geo/1.0/direct?q=" + cityName + "&appid=" + apiKey;
-  fetch(queryURL)
-    .then(function (response) {
-      return response.json()
-    })
-    .then(function (data) {
-      console.log(data);
-      const lat = data.location.lat;
-      const lon = data.location.lon;
-      fetchWeather(lat, lon);
-    })
-    .catch(function () {
-      console.log("error");
-    }
-    )
-};
-
-// THEN I am presented with the city name, the date, an icon representation of 
-// weather conditions, the temperature, the humidity, the wind speed, and the UV index
-
-// STEP 1 (A):
-// and that city is added to the search history
-
-// STEP 2:
-// WHEN I view the UV index
-// THEN I am presented with a color that indicates whether the conditions are favorable, moderate, or severe
-
-// STEP 3:
-// WHEN I view future weather conditions for that city
-// THEN I am presented with a 5-day forecast that displays the date, an icon representation of weather conditions, 
-// the temperature, the wind speed, and the humidity
-
-// STEP 4: (reuse step 1 & step 4)
-// WHEN I click on a city in the search history
-// THEN I am again presented with current and future conditions for that city
-
+function fiveDayForecast() {
+  
+}
 
 searchButton.addEventListener('click', () => {
   let city = cityInput.value;
