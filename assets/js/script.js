@@ -40,7 +40,8 @@ function nowReallyGetTheWeather(lat, lon) {
       return response.json();
     })
     .then( function (weatherObject) {
-      icon.innerHTML = weatherObject.weather.icon;
+      let iconPic = weatherObject.weather[0].icon;
+      icon.setAttribute("src", "https://openweathermap.org/img/wn/" + iconPic + "@2x.png");
       currentTemperatureEl.innerHTML = "Temperature (F): " + weatherObject.main.temp;
       humidity.innerHTML = "Humidity: " + weatherObject.main.humidity;
       windSpeed.innerHTML = "Wind Speed: " + weatherObject.wind.speed;
