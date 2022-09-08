@@ -11,8 +11,8 @@ var searchButton = document.querySelector('#search-button');
 var icon = document.querySelector('.current-icon');
 var currentTemperatureEl = document.querySelector('.temperature');
 var color = ('.card');
-// var theLat;
-// var theLon;
+// var theLat = dataObject[0].lat;
+// var theLon = dataObject[0].lon;
 
 function fetchWeather(cityName) {
   const queryURL = "http://api.openweathermap.org/geo/1.0/direct?q=" + cityName + "&appid=" + apiKey;
@@ -40,32 +40,59 @@ function nowReallyGetTheWeather(lat, lon) {
       return response.json();
     })
     .then( function (weatherObject) {
+      //inserts icon
       let iconPic = weatherObject.weather[0].icon;
       icon.setAttribute("src", "https://openweathermap.org/img/wn/" + iconPic + "@2x.png");
+      //current temperature in fahrenheit
       currentTemperatureEl.innerHTML = "Temperature (F): " + weatherObject.main.temp;
+      //current humidity
       humidity.innerHTML = "Humidity: " + weatherObject.main.humidity;
+      //current wind speed
       windSpeed.innerHTML = "Wind Speed: " + weatherObject.wind.speed;
-      // uvIndex.innerHTML = "Uv Index: " 
+      //description of current weather
       description.innerHTML = "Description: " + weatherObject.weather.description;
+      //description of cloudiness
       clouds.innerHTML = "Clouds: " + weatherObject.clouds.all;
+      //current uv index
+      uvIndex.innerHTML = "UV Index: " + weatherObject.uvi;
       console.log(icon.innerHTML);
+      //this changes the background color according to the UV index
       // changeColor();
     })
 }
 
-function changeColor() {
-  if (uvIndex.innerHTML < 3) {
-    color.style.backgroundColor = "green";
-  } else if (uvIndex.innerHTML < 6) {
-    color.style.backgroundColor = "yellow";
-  } else if (uvIndex.innerHTML < 8) {
-    color.style.backgroundColor = "orange";
-  } else if (uvIndex.innerHTML < 11) {
-    color.style.backgroundColor = "red";
-  } else {
-    color.style.backgroundColor = "purple";
-  }
-}
+// //get UV index
+// function getUVIndex(lat, lon) {
+//   theLat = dataObject[0].lat;
+//   theLon = dataObject[0].lon;
+//   const uvQueryURL = `https://api.openweathermap.org/data/2.5/uvi?lat=${lat}&lon=${lon}&appid=${apiKey}`
+//   fetch(uvQueryURL)
+//     .then( function (response) {
+//       let UVIndex = document.createElement("span");
+//     if (response.weatherObject.value < 3) {
+//       UVIndex.setAttribute("class", "badge badge-success");
+//     } else if (response.weatherObject.value < 8) {
+//       UVIndex.setAttribute("class", "badge badge-warning");
+//     } else {
+//       UVIndex.setAttribute("class", "badge badge-danger");
+//     }
+//     uvIndex.innerHTML = "UV Index: " + response.weatherObject.value;
+//   })
+// }
+//this changes the background color according to the UV index
+// function changeColor() {
+//   if (uvIndex.innerHTML < 3) {
+//     color.style.backgroundColor = "green";
+//   } else if (uvIndex.innerHTML < 6) {
+//     color.style.backgroundColor = "yellow";
+//   } else if (uvIndex.innerHTML < 8) {
+//     color.style.backgroundColor = "orange";
+//   } else if (uvIndex.innerHTML < 11) {
+//     color.style.backgroundColor = "red";
+//   } else {
+//     color.style.backgroundColor = "purple";
+//   }
+// }
 
 function fiveDayForecast() {
   
