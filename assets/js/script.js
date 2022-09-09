@@ -10,9 +10,7 @@ var cityInput = document.querySelector('#search-input');
 var searchButton = document.querySelector('#search-button');
 var icon = document.querySelector('.current-icon');
 var currentTemperatureEl = document.querySelector('.temperature');
-var color = ('.card');
-// var theLat = dataObject[0].lat;
-// var theLon = dataObject[0].lon;
+// var color = ('.card');
 
 function fetchWeather(cityName) {
   const queryURL = "http://api.openweathermap.org/geo/1.0/direct?q=" + cityName + "&appid=" + apiKey;
@@ -54,8 +52,7 @@ function nowReallyGetTheWeather(lat, lon) {
       //description of cloudiness
       clouds.innerHTML = "Clouds: " + weatherObject.clouds.all;
       //current uv index
-      uvIndex.innerHTML = "UV Index: " + weatherObject.uvi;
-      console.log(icon.innerHTML);
+      uvIndex.innerHTML = "UV Index: " + weatherObject.main.uvi;
       //this changes the background color according to the UV index
       // changeColor();
     })
