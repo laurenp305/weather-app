@@ -58,27 +58,6 @@ function nowReallyGetTheWeather(lat, lon) {
     })
 }
 
-// this changes the background color according to the UV index
-function changeColor() {
-  let temp = weatherObject.main.temp;
-  let green = temp.fontcolor("green");
-  let blue = temp.fontcolor("blue");
-  let yellow = temp.fontcolor("yellow");
-  let orange = temp.fontcolor("orange");
-  let red = temp.fontcolor("red");
-  if (temp > 60) {
-    
-  } else if (uvIndex.innerHTML > 70) {
-    $(card.css("background-color", "yellow"));
-  } else if (uvIndex.innerHTML > 80) {
-    $(card.css("background-color", "orange"));
-  } else if (uvIndex.innerHTML > 90) {
-    $(card.css("background-color", "red"));
-  } else {
-    $(card.css("background-color", "light blue"));
-  }
-}
-
 function fiveDayForecast() {
   
 }
