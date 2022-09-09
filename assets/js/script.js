@@ -10,7 +10,7 @@ var cityInput = document.querySelector('#search-input');
 var searchButton = document.querySelector('#search-button');
 var icon = document.querySelector('.current-icon');
 var currentTemperatureEl = document.querySelector('.temperature');
-// var color = ('.card');
+var color = ('.card');
 
 function fetchWeather(cityName) {
   const queryURL = "http://api.openweathermap.org/geo/1.0/direct?q=" + cityName + "&appid=" + apiKey;
@@ -58,38 +58,26 @@ function nowReallyGetTheWeather(lat, lon) {
     })
 }
 
-// //get UV index
-// function getUVIndex(lat, lon) {
-//   theLat = dataObject[0].lat;
-//   theLon = dataObject[0].lon;
-//   const uvQueryURL = `https://api.openweathermap.org/data/2.5/uvi?lat=${lat}&lon=${lon}&appid=${apiKey}`
-//   fetch(uvQueryURL)
-//     .then( function (response) {
-//       let UVIndex = document.createElement("span");
-//     if (response.weatherObject.value < 3) {
-//       UVIndex.setAttribute("class", "badge badge-success");
-//     } else if (response.weatherObject.value < 8) {
-//       UVIndex.setAttribute("class", "badge badge-warning");
-//     } else {
-//       UVIndex.setAttribute("class", "badge badge-danger");
-//     }
-//     uvIndex.innerHTML = "UV Index: " + response.weatherObject.value;
-//   })
-// }
-//this changes the background color according to the UV index
-// function changeColor() {
-//   if (uvIndex.innerHTML < 3) {
-//     color.style.backgroundColor = "green";
-//   } else if (uvIndex.innerHTML < 6) {
-//     color.style.backgroundColor = "yellow";
-//   } else if (uvIndex.innerHTML < 8) {
-//     color.style.backgroundColor = "orange";
-//   } else if (uvIndex.innerHTML < 11) {
-//     color.style.backgroundColor = "red";
-//   } else {
-//     color.style.backgroundColor = "purple";
-//   }
-// }
+// this changes the background color according to the UV index
+function changeColor() {
+  let temp = weatherObject.main.temp;
+  let green = temp.fontcolor("green");
+  let blue = temp.fontcolor("blue");
+  let yellow = temp.fontcolor("yellow");
+  let orange = temp.fontcolor("orange");
+  let red = temp.fontcolor("red");
+  if (temp > 60) {
+    
+  } else if (uvIndex.innerHTML > 70) {
+    $(card.css("background-color", "yellow"));
+  } else if (uvIndex.innerHTML > 80) {
+    $(card.css("background-color", "orange"));
+  } else if (uvIndex.innerHTML > 90) {
+    $(card.css("background-color", "red"));
+  } else {
+    $(card.css("background-color", "light blue"));
+  }
+}
 
 function fiveDayForecast() {
   
