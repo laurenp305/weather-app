@@ -11,6 +11,7 @@ var searchHistory = JSON.parse(localStorage.getItem("search")) || [];
 var icon = document.querySelector('.current-icon');
 var currentTemperatureEl = document.querySelector('.temperature');
 var historyEl = document.querySelector("#history");
+var clearHisButton = document.querySelector('#clear-history-button');
 //forecast variables
 var forecastHeader = document.querySelector('#five-day-header');
 var forecastIcon = document.querySelector('.forecast-icon');
@@ -65,7 +66,7 @@ function nowReallyGetTheWeather(lat, lon) {
       description.innerHTML = "Description: " + weatherObject.weather.description;
       //description of cloudiness
       clouds.innerHTML = "Clouds: " + weatherObject.clouds.all;
-})
+    })
 }
 
 function getFiveDayForecast(lat, lon) {
@@ -78,33 +79,33 @@ function getFiveDayForecast(lat, lon) {
       const forecastEl = document.querySelectorAll(".forecast");
       for (let i = 0; i < forecastEl.length; i++) {
         forecastEl[i].innerHTML = "";
-    //inserts icon
-    let forecastIndex = fiveDayObject.daily[i];
-    let forecastDate = new Date(forecastIndex.dt * 1000);
-    let forecastDay = forecastDate.getDate();
-    let forecastMonth = forecastDate.getMonth() + 1;
-    let forecastYear = forecastDate.getFullYear();
-    forecastDateEl.innerHTML = forecastDay + "/" + forecastMonth + "/" + forecastYear;
-    forecastEl[i].append(forecastDateEl);
-    iconPic = fiveDayObject.daily[0].weather[0].icon;
-    forecastIcon = document.querySelector('.forecast-icon');
-    forecastIcon.setAttribute("src", "https://openweathermap.org/img/wn/" + iconPic + "@2x.png");
-    //current temperature in fahrenheit
-    forecastTemp.innerHTML = "Temperature (F): " + fiveDayObject.daily[0].temp.day;
-    //current humidity
-    forecastHumidity.innerHTML = "Humidity: " + fiveDayObject.daily[0].humidity;
-    //current wind speed
-    forecastWindSpeed.innerHTML = "Wind Speed: " + fiveDayObject.daily[0].wind_speed;
-    //description of current weather
-    forecastDescription.innerHTML = "Description: " + fiveDayObject.daily[0].weather.description;
-    //description of cloudiness
-    forecastClouds.innerHTML = "Clouds: " + fiveDayObject.daily[0].clouds;
-  }
-  })
+        //inserts icon
+        let forecastIndex = fiveDayObject.daily[i];
+        let forecastDate = new Date(forecastIndex.dt * 1000);
+        let forecastDay = forecastDate.getDate();
+        let forecastMonth = forecastDate.getMonth() + 1;
+        let forecastYear = forecastDate.getFullYear();
+        forecastDateEl.innerHTML = forecastDay + "/" + forecastMonth + "/" + forecastYear;
+        forecastEl[i].append(forecastDateEl);
+        iconPic = fiveDayObject.daily[0].weather[0].icon;
+        forecastIcon = document.querySelector('.forecast-icon');
+        forecastIcon.setAttribute("src", "https://openweathermap.org/img/wn/" + iconPic + "@2x.png");
+        //current temperature in fahrenheit
+        forecastTemp.innerHTML = "Temperature (F): " + fiveDayObject.daily[0].temp.day;
+        //current humidity
+        forecastHumidity.innerHTML = "Humidity: " + fiveDayObject.daily[0].humidity;
+        //current wind speed
+        forecastWindSpeed.innerHTML = "Wind Speed: " + fiveDayObject.daily[0].wind_speed;
+        //description of current weather
+        forecastDescription.innerHTML = "Description: " + fiveDayObject.daily[0].weather.description;
+        //description of cloudiness
+        forecastClouds.innerHTML = "Clouds: " + fiveDayObject.daily[0].clouds;
+      }
+    })
 }
 
- // Get history from local storage if any
- searchButton.addEventListener("click", function () {
+// Get history from local storage if any
+searchButton.addEventListener("click", function () {
   const searchTerm = cityInput.value;
   fetchWeather(searchTerm);
   searchHistory.push(searchTerm);
@@ -115,15 +116,15 @@ function getFiveDayForecast(lat, lon) {
 function renderSearchHistory() {
   historyEl.innerHTML = "";
   for (let i = 0; i < searchHistory.length; i++) {
-      const historyItem = document.createElement("input");
-      historyItem.setAttribute("type", "text");
-      historyItem.setAttribute("readonly", true);
-      historyItem.setAttribute("class", "form-control d-block bg-white");
-      historyItem.setAttribute("value", searchHistory[i]);
-      historyItem.addEventListener("click", function () {
-        fetchWeather(historyItem.value);
-      })
-      historyEl.append(historyItem);
+    const historyItem = document.createElement("input");
+    historyItem.setAttribute("type", "text");
+    historyItem.setAttribute("readonly", true);
+    historyItem.setAttribute("class", "form-control d-block bg-white");
+    historyItem.setAttribute("value", searchHistory[i]);
+    historyItem.addEventListener("click", function () {
+      fetchWeather(historyItem.value);
+    })
+    historyEl.append(historyItem);
   }
 }
 
@@ -131,6 +132,13 @@ renderSearchHistory();
 if (searchHistory.length > 0) {
   fetchWeather(searchHistory[searchHistory.length - 1]);
 }
+
+//clear history button 
+clearHisButton.addEventListener("click", function () {
+  localStorage.clear();
+  searchHistory = [];
+  renderSearchHistory();
+})
 
 
 //Search for city button
