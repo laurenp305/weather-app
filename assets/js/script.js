@@ -18,6 +18,7 @@ var forecastHumidity = document.querySelector('#forecast-humidity');
 var forecastWindSpeed = document.querySelector('#forecast-wind-speed');
 var forecastDescription = document.querySelector('#forecast-description');
 var forecastClouds = document.querySelector('#forecast-clouds');
+var forecastDateEl = document.querySelector('.forecast-date');
 
 // //fiveday forecast
 // var fiveDayHeader = ('#five-day-header');
@@ -73,8 +74,17 @@ function getFiveDayForecast(lat, lon) {
       return response.json();
     })
     .then(function (fiveDayObject) {
-   console.log(fiveDayObject);   
+      const forecastEl = document.querySelectorAll(".forecast");
+      for (let i = 0; i < forecastEl.length; i++) {
+        forecastEl[i].innerHTML = "";
     //inserts icon
+    let forecastIndex = fiveDayObject.daily[i];
+    let forecastDate = new Date(forecastIndex.dt * 1000);
+    let forecastDay = forecastDate.getDate();
+    let forecastMonth = forecastDate.getMonth() + 1;
+    let forecastYear = forecastDate.getFullYear();
+    forecastDateEl.innerHTML = forecastDay + "/" + forecastMonth + "/" + forecastYear;
+    forecastEl[i].append(forecastDateEl);
     iconPic = fiveDayObject.daily[0].weather[0].icon;
     forecastIcon = document.querySelector('.forecast-icon');
     forecastIcon.setAttribute("src", "https://openweathermap.org/img/wn/" + iconPic + "@2x.png");
@@ -88,12 +98,13 @@ function getFiveDayForecast(lat, lon) {
     forecastDescription.innerHTML = "Description: " + fiveDayObject.daily[0].weather.description;
     //description of cloudiness
     forecastClouds.innerHTML = "Clouds: " + fiveDayObject.daily[0].clouds;
-})
+  }
+  })
 }
 
 
-// Get history from local storage
 
+// Get history from local storage
 
 searchButton.addEventListener('click', () => {
   let city = cityInput.value;
