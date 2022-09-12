@@ -10,10 +10,17 @@ var searchButton = document.querySelector('#search-button');
 var searchHistory = JSON.parse(localStorage.getItem("search")) || [];
 var icon = document.querySelector('.current-icon');
 var currentTemperatureEl = document.querySelector('.temperature');
+//forecast variables
 var forecastHeader = document.querySelector('#five-day-header');
+var forecastIcon = document.querySelector('.forecast-icon');
+var forecastTemp = document.querySelector('#forecast-temp');
+var forecastHumidity = document.querySelector('#forecast-humidity');
+var forecastWindSpeed = document.querySelector('#forecast-wind-speed');
+var forecastDescription = document.querySelector('#forecast-description');
+var forecastClouds = document.querySelector('#forecast-clouds');
 
-//fiveday forecast
-var fiveDayHeader = ('#five-day-header');
+// //fiveday forecast
+// var fiveDayHeader = ('#five-day-header');
 
 
 function fetchWeather(cityName) {
@@ -59,61 +66,30 @@ function nowReallyGetTheWeather(lat, lon) {
 })
 }
 
-//get five-day forecast
 function getFiveDayForecast(lat, lon) {
-  let foreCastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=imperial`
-  fetch(foreCastUrl)
+  const queryURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=current,minutely,hourly,alerts&appid=${apiKey}&units=imperial`
+  fetch(queryURL)
     .then(function (response) {
       return response.json();
     })
-    .then(function (weatherObject) {
-      //inserts icon
-      // console.log(weatherObject);
-      let fiveDayInfo = weatherObject.list[0];
-
-      fetch(foreCastUrl)
-    .then(response => response.json())
-    .then(forecast => {
-
-        // For each day, we'll loop through and add it to the DOM:
-        forecast.list.forEach(day => {
-          //gives header of this section the name of the city
-          forecastHeader.innerHTML = cityInput.value;
-            // Create a new element to hold each day's data in the DOM:
-            const dayContainer = document.createElement('div')
-
-            // Create an element to hold the temp data:
-            const temp = day.main.temp;
-            const tempElem = document.createElement('div')
-            tempElem.innerText = Math.round(temp) + '°F'
-            dayContainer.appendChild(tempElem)
-
-            // Create an image element to hold the icon:
-            const icon = day.weather[0].icon;
-            const iconElem = document.createElement('img')
-            iconElem.src = 'http://openweathermap.org/img/wn/' + icon + '.png'
-            dayContainer.appendChild(iconElem)
-
-            // Add the result to the DOM:
-            document.body.appendChild(dayContainer)
-        })
-    })
-      // dayOne.innerHTML = weatherObject.list[0];
-      // console.log(fiveDayInfo[0].main);
-
-      // //current temperature in fahrenheit
-      // currentTemperatureEl.innerHTML = "Temperature (F): " + weatherObject.main.temp;
-      // //current humidity
-      // humidity.innerHTML = "Humidity: " + weatherObject.main.humidity;
-      // //current wind speed
-      // windSpeed.innerHTML = "Wind Speed: " + weatherObject.wind.speed;
-      // //description of current weather
-      // description.innerHTML = "Description: " + weatherObject.weather.description;
-      // //description of cloudiness
-      // clouds.innerHTML = "Clouds: " + weatherObject.clouds.all;
-// }
-    })
-  }
+    .then(function (fiveDayObject) {
+   console.log(fiveDayObject);   
+    //inserts icon
+    iconPic = fiveDayObject.daily[0].weather[0].icon;
+    forecastIcon = document.querySelector('.forecast-icon');
+    forecastIcon.setAttribute("src", "https://openweathermap.org/img/wn/" + iconPic + "@2x.png");
+    //current temperature in fahrenheit
+    forecastTemp.innerHTML = "Temperature (F): " + fiveDayObject.daily[0].temp.day;
+    //current humidity
+    forecastHumidity.innerHTML = "Humidity: " + fiveDayObject.daily[0].humidity;
+    //current wind speed
+    forecastWindSpeed.innerHTML = "Wind Speed: " + fiveDayObject.daily[0].wind_speed;
+    //description of current weather
+    forecastDescription.innerHTML = "Description: " + fiveDayObject.daily[0].weather.description;
+    //description of cloudiness
+    forecastClouds.innerHTML = "Clouds: " + fiveDayObject.daily[0].clouds;
+})
+}
 
 
 // Get history from local storage
