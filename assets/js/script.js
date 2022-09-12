@@ -10,6 +10,7 @@ var searchButton = document.querySelector('#search-button');
 var searchHistory = JSON.parse(localStorage.getItem("search")) || [];
 var icon = document.querySelector('.current-icon');
 var currentTemperatureEl = document.querySelector('.temperature');
+var historyEl = document.querySelector("#history");
 //forecast variables
 var forecastHeader = document.querySelector('#five-day-header');
 var forecastIcon = document.querySelector('.forecast-icon');
@@ -102,10 +103,37 @@ function getFiveDayForecast(lat, lon) {
   })
 }
 
+ // Get history from local storage if any
+ searchButton.addEventListener("click", function () {
+  const searchTerm = cityInput.value;
+  fetchWeather(searchTerm);
+  searchHistory.push(searchTerm);
+  localStorage.setItem("search", JSON.stringify(searchHistory));
+  renderSearchHistory();
+})
+
+function renderSearchHistory() {
+  historyEl.innerHTML = "";
+  for (let i = 0; i < searchHistory.length; i++) {
+      const historyItem = document.createElement("input");
+      historyItem.setAttribute("type", "text");
+      historyItem.setAttribute("readonly", true);
+      historyItem.setAttribute("class", "form-control d-block bg-white");
+      historyItem.setAttribute("value", searchHistory[i]);
+      historyItem.addEventListener("click", function () {
+        fetchWeather(historyItem.value);
+      })
+      historyEl.append(historyItem);
+  }
+}
+
+renderSearchHistory();
+if (searchHistory.length > 0) {
+  fetchWeather(searchHistory[searchHistory.length - 1]);
+}
 
 
-// Get history from local storage
-
+//Search for city button
 searchButton.addEventListener('click', () => {
   let city = cityInput.value;
   console.log(city);
