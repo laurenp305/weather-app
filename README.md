@@ -15,7 +15,9 @@ SO THAT I can plan a trip accordingly
 
 ## Screenshots of Application
 
+<img width="1783" alt="Weather App (1)" src="https://user-images.githubusercontent.com/106932259/189782724-6284bb3d-8f22-4585-969e-4ea6757ab420.png">
 
+<img width="1790" alt="Weather App (2)" src="https://user-images.githubusercontent.com/106932259/189782734-1d31008c-01f5-4ff0-9a4a-0dfc4c485666.png">
 
 ## Live URL 
 
