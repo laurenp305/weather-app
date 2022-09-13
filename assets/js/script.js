@@ -13,16 +13,8 @@ var currentTemperatureEl = document.querySelector('.temperature');
 var historyEl = document.querySelector("#history");
 var clearHisButton = document.querySelector('#clear-history-button');
 
-//forecast variables
-// var forecastHeader = document.querySelector('#five-day-header');
-// var forecastIcon = document.querySelector('.forecast-icon');
-// var forecastTemp = document.querySelector('#forecast-temp');
-// var forecastHumidity = document.querySelector('#forecast-humidity');
-// var forecastWindSpeed = document.querySelector('#forecast-wind-speed');
-// var forecastDescription = document.querySelector('#forecast-description');
-// var forecastClouds = document.querySelector('#forecast-clouds');
-// var forecastDateEl = document.querySelector('.forecast-date');
-var forecastGroupEl = document.querySelector(".forecast");
+
+var forecastGroupEl = document.querySelector(".card-body");
 
 function fetchWeather(cityName) {
   const queryURL = "http://api.openweathermap.org/geo/1.0/direct?q=" + cityName + "&appid=" + apiKey;
@@ -127,43 +119,6 @@ document.getElementById("search-button").addEventListener("click", function () {
     }
   });
 });
-
-
-
-// function getFiveDayForecast(lat, lon) {
-//   const queryURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=current,minutely,hourly,alerts&appid=${apiKey}&units=imperial`
-//   fetch(queryURL)
-//     .then(function (response) {
-//       return response.json();
-//     })
-//     .then(function (fiveDayObject) {
-//       const forecastEl = document.querySelectorAll(".forecast");
-//       for (let i = 0; i < forecastEl.length; i++) {
-//         forecastEl[i].innerHTML = "";
-//         //inserts icon
-//         let forecastIndex = fiveDayObject.daily[i];
-//         let forecastDate = new Date(forecastIndex.dt * 1000);
-//         let forecastDay = forecastDate.getDate();
-//         let forecastMonth = forecastDate.getMonth() + 1;
-//         let forecastYear = forecastDate.getFullYear();
-//         forecastDateEl.innerHTML = forecastDay + "/" + forecastMonth + "/" + forecastYear;
-//         forecastEl[i].append(forecastDateEl);
-//         iconPic = fiveDayObject.daily[0].weather[0].icon;
-//         forecastIcon = document.querySelector('.forecast-icon');
-//         forecastIcon.setAttribute("src", "https://openweathermap.org/img/wn/" + iconPic + "@2x.png");
-//         //current temperature in fahrenheit
-//         forecastTemp.innerHTML = "Temperature (F): " + fiveDayObject.daily[0].temp.day;
-//         //current humidity
-//         forecastHumidity.innerHTML = "Humidity: " + fiveDayObject.daily[0].humidity;
-//         //current wind speed
-//         forecastWindSpeed.innerHTML = "Wind Speed: " + fiveDayObject.daily[0].wind_speed;
-//         //description of current weather
-//         forecastDescription.innerHTML = "Description: " + fiveDayObject.daily[0].weather.description;
-//         //description of cloudiness
-//         forecastClouds.innerHTML = "Clouds: " + fiveDayObject.daily[0].clouds;
-//       }
-//     })
-// }
 
 // Get history from local storage if any
 searchButton.addEventListener("click", function () {
