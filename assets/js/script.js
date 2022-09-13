@@ -12,6 +12,7 @@ var icon = document.querySelector('.current-icon');
 var currentTemperatureEl = document.querySelector('.temperature');
 var historyEl = document.querySelector("#history");
 var clearHisButton = document.querySelector('#clear-history-button');
+var uvIndex = document.querySelector('.uv-index');
 
 
 var forecastGroupEl = document.querySelector(".card-body");
